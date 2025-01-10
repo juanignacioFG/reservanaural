@@ -1,0 +1,39 @@
+@startuml
+class Animal {
+    - nombre: String
+    - tipo: String
+    - familia: String
+    - genero: String
+    - paisOrigen: String
+    - fechaIngreso: LocalDate
+    - imagen: String
+}
+
+interface AnimalRepository {
+    + save()
+    + findById()
+    + findAll()
+}
+
+class AnimalService {
+    + obtenerTodos()
+    + obtenerPorFamilia()
+    + obtenerPorNombre()
+    + agregarAnimal()
+    + editarAnimal()
+    + eliminarAnimal()
+}
+
+class AnimalController {
+    + getTodos()
+    + getPorFamilia()
+    + getPorNombre()
+    + postAnimal()
+    + putAnimal()
+    + deleteAnimal()
+}
+
+AnimalService --> AnimalRepository : uses
+AnimalController --> AnimalService : uses
+Animal --> AnimalRepository : manages
+@enduml

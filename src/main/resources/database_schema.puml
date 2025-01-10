@@ -1,0 +1,13 @@
+@startuml
+entity "animal" {
+    * id : BIGINT
+    --
+    nombre : VARCHAR
+    tipo : VARCHAR
+    familia : VARCHAR
+    genero : VARCHAR
+    pais_origen : VARCHAR
+    fecha_ingreso : DATE
+    imagen : VARCHAR
+}
+@enduml
