@@ -37,4 +37,21 @@ public class AnimalController {
         animalService.eliminarAnimal(id);
         return ResponseEntity.noContent().build();
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<Animal> actualizarAnimal(@PathVariable Long id, @RequestBody Animal animalActualizado) {
+        Optional<Animal> animalExistente = animalService.obtenerPorId(id);
+        if (animalExistente.isPresent()) {
+            Animal animal = animalExistente.get();
+            animal.setNombre(animalActualizado.getNombre());
+            animal.setTipo(animalActualizado.getTipo());
+            animal.setFamilia(animalActualizado.getFamilia());
+            animal.setGenero(animalActualizado.getGenero());
+            animal.setPaisOrigen(animalActualizado.getPaisOrigen());
+            animal.setFechaIngreso(animalActualizado.getFechaIngreso());
+            animal.setImagen(animalActualizado.getImagen());
+            return ResponseEntity.ok(animalService.guardarAnimal(animal));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

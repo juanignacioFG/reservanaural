@@ -21,6 +21,19 @@ public class Animal {
     private LocalDate fechaIngreso;
     private String imagen;
 
+    public Animal(String nombre, String tipo, String familia, String genero, String paisOrigen, LocalDate fechaIngreso, String imagen) {
+        this.nombre = nombre;
+        this.tipo = tipo;
+        this.familia = familia;
+        this.genero = genero;
+        this.paisOrigen = paisOrigen;
+        this.fechaIngreso = fechaIngreso;
+        this.imagen = imagen;
+    }
+
+    public Animal() {
+    }
+
     // Getters y Setters
     public Long getId() {
         return id;
