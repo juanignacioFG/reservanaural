@@ -1,4 +1,4 @@
-/*   package com.tuProyecto.service;
+ package com.juan.reservanatural.config;
 
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,4 +23,4 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException("Usuario no encontrado");
         }
     }
-}     */
+}
