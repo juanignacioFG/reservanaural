@@ -2,12 +2,19 @@ package com.juan.reservanatural.controller;
 
 import com.juan.reservanatural.model.Animal;
 import com.juan.reservanatural.services.AnimalService;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/animales")
@@ -37,6 +44,7 @@ public class AnimalController {
         animalService.eliminarAnimal(id);
         return ResponseEntity.noContent().build();
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<Animal> actualizarAnimal(@PathVariable Long id, @RequestBody Animal animalActualizado) {
         Optional<Animal> animalExistente = animalService.obtenerPorId(id);
@@ -53,5 +61,12 @@ public class AnimalController {
         } else {
             return ResponseEntity.notFound().build();
         }
+
+
+    }
+
+    @GetMapping("/familia/{familia}")
+    public List<Animal> obtenerAnimalesPorFamilia(@PathVariable String familia) {
+        return (List<Animal>) animalService.obtenerAnimalesPorFamilia(familia);
     }
 }

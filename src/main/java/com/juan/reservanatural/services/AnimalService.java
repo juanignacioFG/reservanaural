@@ -2,11 +2,23 @@ package com.juan.reservanatural.services;
 
 import com.juan.reservanatural.model.Animal;
 import com.juan.reservanatural.model.AnimalRepository;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
+
+
 import org.springframework.stereotype.Service;
+
+
 
 import java.util.List;
 import java.util.Optional;
+
+
+
+
+import org.springframework.data.domain.Page;
+
 
 @Service
 public class AnimalService {
@@ -28,5 +40,11 @@ public class AnimalService {
 
     public void eliminarAnimal(Long id) {
         animalRepository.deleteById(id);
+    }
+
+
+
+    public Object obtenerAnimalesPorFamilia(String familia) {
+        return  animalRepository.findByFamilia(familia);
     }
 }
