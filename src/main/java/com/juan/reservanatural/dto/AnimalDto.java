@@ -1,14 +1,12 @@
 package com.juan.reservanatural.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.util.Date;
 
 public record AnimalDto(
-        @NotBlank(message = "El nombre no puede estar vacío")
+        @NotNull(message = "EL nombre no puede ser nulo.")
+        @NotEmpty(message = "el nombre no puede estar vacio.")
         @Size(max = 100, message = "El nombre no puede superar los 100 caracteres")
                 String nombre,
 

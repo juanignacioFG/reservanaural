@@ -5,6 +5,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
@@ -13,12 +17,21 @@ public class Animal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "El nombre no puede estar vacío")
+    @Size(max = 100, message = "El nombre no puede superar los 100 caracteres")
     private String nombre;
+    @NotBlank(message = "El tipo no puede estar vacío")
     private String tipo;
+    @NotBlank(message = "La familia no puede estar vacía")
     private String familia;
+    @NotBlank(message = "El género no puede estar vacío")
     private String genero;
+    @NotBlank(message = "El país de origen no puede estar vacío")
     private String paisOrigen;
+    @NotNull(message = "La fecha de ingreso no puede estar vacía")
+    @PastOrPresent(message = "La fecha de ingreso debe ser pasada o presente")
     private LocalDate fechaIngreso;
+
     private String imagen;
 
     public Animal(String nombre, String tipo, String familia, String genero, String paisOrigen, LocalDate fechaIngreso, String imagen) {

@@ -1,4 +1,4 @@
-package com.juan.reservanatural.exceptions;
+package com.juan.reservanatural.dto;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
-public class GlobalExceptionHandler {
+public class AnimalDtoController {
 
     // Captura errores de validación de @Valid en AnimalDto
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -32,5 +32,5 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> manejarErroresGenerales(Exception ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body("Error interno del servidor: " + ex.getMessage());
-    }
-}
+
+    }}
