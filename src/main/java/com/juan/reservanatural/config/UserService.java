@@ -1,12 +1,15 @@
  package com.juan.reservanatural.config;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-@Service
+import java.util.Locale;
+
+ @Service
 public class UserService implements UserDetailsService {
 
     @Override
@@ -23,4 +26,7 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException("Usuario no encontrado");
         }
     }
-}
+
+
+
+ }
