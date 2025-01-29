@@ -1,21 +1,20 @@
+
 package com.juan.reservanatural.config;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
-
-import java.util.ArrayList;
-import java.util.Collection;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -23,57 +22,41 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Value("${api-endpoint}")
-    String endpoint;
-
-
-    @Autowired
-    private UserDetailsService userDetailsService;
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public UserDetailsService userDetailsService() {
+        UserDetails admin = User.builder()
+                .username("admin")
+                .password(passwordEncoder().encode("admin123")) // Contraseña encriptada
+                .build();
+        return new InMemoryUserDetailsManager(admin);
+    }
 
-        http
-                .cors(withDefaults())
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService());
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity security) throws Exception {
+        return security
                 .csrf(csrf -> csrf.disable())
-                .formLogin(form -> form.disable())
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(endpoint+"/welcome").hasRole("USER") // principio de mínimos privilegios
-                        .requestMatchers(endpoint + "/public").permitAll()
-                        .requestMatchers(endpoint + "/private").hasRole("ADMIN")
-                        .anyRequest().authenticated())
-                .httpBasic(withDefaults())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
-                .userDetailsService(userDetailsService)
-                .headers(headers -> headers.frameOptions(frame -> frame.disable()));
-
-
-        return http.build();
-
-    }
-
-
-    @Bean
-    public InMemoryUserDetailsManager userDetailsManager() {
-
-        UserDetails mickey = User.builder()
-                .username("mickey")
-                .password("{noop}mouse")
-                .roles("ADMIN")
+                .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+                .httpBasic(Customizer.withDefaults())
+//              .formLogin(Customizer.withDefaults()) // Permite autenticación desde navegador
+                .formLogin(form -> form.disable()) // Deshabilita autenticación desde navegador
                 .build();
-
-        UserDetails minnie = User.builder()
-                .username("minnie")
-                .password("{noop}mouse")
-                .roles("USER")
-                .build();
-
-        Collection<UserDetails> users = new ArrayList<>();
-        users.add(mickey);
-        users.add(minnie);
-
-        return new InMemoryUserDetailsManager(users);
-
     }
-
 }
