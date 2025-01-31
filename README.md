@@ -1,8 +1,8 @@
-Reserva Natural - API REST
+**Reserva Natural - API REST**
 
 Este proyecto es una API REST desarrollada en Java con Spring Boot para la gestión de animales en una reserva natural. Permite realizar operaciones CRUD sobre los animales registrados en la base de datos.
 
-🚀 Tecnologías utilizadas
+🚀 **Tecnologías utilizadas**
 
 Java 17
 
@@ -16,12 +16,15 @@ Lombok (Para reducir código boilerplate)
 
 Postman (Para pruebas de API)
 
-📂 Estructura del Proyecto
+---
 
+📂 **Estructura del Proyecto**
 
-![primera](https://github.com/user-attachments/assets/1a731c09-ea8d-4caf-b4a9-89ee6aafabee)
+![primera](https://github.com/user-attachments/assets/1a731c09-ea8d-4caf-b4a9-89ee6aafabee) 
 
-📌 Configuración de la Base de Datos
+---
+
+📌 **Configuración de la Base de Datos**
 
 En el archivo application.properties configuramos la conexión a la base de datos:
 
@@ -34,12 +37,13 @@ Si prefieres usar una base de datos en memoria, puedes cambiar a H2:
 ![segunda](https://github.com/user-attachments/assets/191b1dc0-9d66-4f0e-8ce4-273054c2c011)
 
 🛠 Funcionalidades Implementadas
+---
 
-1️⃣ CRUD de Animales
+1️⃣ **CRUD de Animales**
 
 ![primera](https://github.com/user-attachments/assets/f24e6231-5090-4759-b967-a23c178f22ff)
 
-2️⃣ Filtrado por Familia
+2️⃣ **Filtrado por Familia**
 
 GET /api/animales/familia?familia={nombre} → Devuelve los animales que pertenecen a una familia específica.
 
@@ -68,14 +72,14 @@ GET /api/animales/familia?familia={nombre} → Devuelve los animales que pertene
 
 🔥 Cómo probar la API
 
-1️⃣ Ejecutar la aplicación
+1️⃣ **Ejecutar la aplicación**
 
 Desde IntelliJ o con Maven:
 
 
 ![p1](https://github.com/user-attachments/assets/c0f7a256-e0b9-411a-867f-2acaa36ec0ed)
 
-2️⃣ Pruebas con Postman
+2️⃣ **Pruebas con Postman**
 
 GET http://localhost:8080/api/animales
 
@@ -86,6 +90,8 @@ PUT http://localhost:8080/api/animales/{id} (Actualizar un animal)
 DELETE http://localhost:8080/api/animales/{id}
 
 GET http://localhost:8080/api/animales/familia?familia=Mamíferos
+
+---
 
 
 ## Contacto creador
